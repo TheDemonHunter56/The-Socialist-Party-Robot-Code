@@ -21,6 +21,10 @@ public class Drive extends SubsystemBase{
     leftLeader.setInverted(true);
 
     //reseting motors to factory standards
+    /*You need to figure out how and why it is crossed out my friends - Kyson
+     * 
+     * 
+     */
     public Drive() {
         for (CANSparkMax spark : List.of(leftLeader, leftFollower, rightLeader, rightFollower)) {
             spark.restoreFactoryDefaults();
