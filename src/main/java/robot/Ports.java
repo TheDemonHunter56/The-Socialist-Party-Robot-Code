@@ -1,5 +1,7 @@
 package robot;
 
+// Note: the Ports aren't final. Subject to change based on the hardware.
+
 public final class Ports {
   public static final class OI {
     public static final int OPERATOR = 0;
@@ -16,4 +18,11 @@ public final class Ports {
   public static final class Intake {
     public static final int ROLL = 6;
   }
+
+  public static final class Arms {
+    public static final int Leftarm = 7;
+    public static final int Rightarm = 8;
+  
+  }
+
 }
