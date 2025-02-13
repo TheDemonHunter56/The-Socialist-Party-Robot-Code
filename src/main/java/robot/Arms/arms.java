@@ -15,7 +15,6 @@ public class arms extends SubsystemBase {
     public void SetArms(){ // Resets setting to facotry 
         Leftarm.restoreFactoryDefaults();
         Rightarm.restoreFactoryDefaults();
-        ENCODER.reset();
     }
 
     }
