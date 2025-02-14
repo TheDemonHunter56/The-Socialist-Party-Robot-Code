@@ -7,5 +7,5 @@ import robot.Ports;
 
 
 public class Intake extends SubsystemBase{
-    private final CANSparkMax Roll = new CANSparkMax(Ports.Intake.ROLL, MotorType.kBrushless);
+    public static final CANSparkMax Roll = new CANSparkMax(Ports.Intake.ROLL, MotorType.kBrushless);
 }
