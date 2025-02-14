@@ -1,5 +1,3 @@
 package robot.intake;
 
-public class IntakeConstants {
-    
-}
+public class IntakeConstants {}
