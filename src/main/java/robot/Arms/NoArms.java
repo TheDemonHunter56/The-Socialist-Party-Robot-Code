@@ -1,5 +1,5 @@
 package robot.Arms;
 
-public interface NoArms {
+public class NoArms implements ArmsIO{
 
-}
+    }   
