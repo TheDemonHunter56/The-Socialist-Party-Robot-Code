@@ -1,7 +1,8 @@
 package robot.intake;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake {
+public class Intake extends SubsystemBase{
     public final IntakeIO hardware;
 
     public Intake(IntakeIO hardware) {
@@ -11,7 +12,8 @@ public class Intake {
     public Command startMotor() {
         return run(() -> hardware.setPower(1));
     }
+
     public Command stopMotor() {
-        hardware.setPower(0);
+       return run(() -> hardware.setPower(0));
     }
 }
