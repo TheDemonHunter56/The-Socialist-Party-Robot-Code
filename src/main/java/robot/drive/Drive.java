@@ -1,6 +1,7 @@
 package robot.drive;
 
 import java.util.List;
+import java.util.function.DoubleSupplier;
 
 import javax.sound.sampled.Port;
 
@@ -8,6 +9,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robot.Ports;
 
