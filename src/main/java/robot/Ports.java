@@ -25,4 +25,10 @@ public final class Ports {
   
   }
 
+  public static final class Shooter {
+    public static final int rightShooter = 9;
+    public static final int leftShooter = 10;
+    
+  }
+
 }
