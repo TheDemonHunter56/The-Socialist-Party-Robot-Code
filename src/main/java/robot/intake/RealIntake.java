@@ -9,7 +9,7 @@ public class RealIntake implements IntakeIO{
     
     @Override
     public void setPower(double power) {
-        roll.set(power);
+        roll.setVoltage(power);
     }
     
 }

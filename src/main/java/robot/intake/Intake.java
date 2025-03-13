@@ -1,17 +1,19 @@
 package robot.intake;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends CommandBase{
-    private final Intake intake;
-        
-        public Intake(Intake intake) {
-            this.intakeMotor = intakeMotor;
+public class Intake extends SubsystemBase{
+    public final IntakeIO hardware;
+
+    public Intake(IntakeIO hardware) {
+        this.hardware = hardware;
     }
-    public void startMotor() {
-        intakeMotor.set(1);
+    
+    public Command startMotor() {
+        return run(() -> hardware.setPower(1));
     }
-    public void stopMotor() {
-        intakeMotor.set(0);
+
+    public Command stopMotor() {
+       return run(() -> hardware.setPower(0));
     }
 }
