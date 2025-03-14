@@ -1,5 +1,5 @@
 package robot.Arms;
 
-public interface RealArms {
+public class RealArms implements ArmsIO  {
 
 }
