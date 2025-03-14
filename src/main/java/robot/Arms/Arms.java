@@ -19,9 +19,5 @@ public class Arms extends SubsystemBase {
 
     public void MoveLeftArm(){}
 
-
-
-    public void MoveRightArm(){}
-
     }
 
