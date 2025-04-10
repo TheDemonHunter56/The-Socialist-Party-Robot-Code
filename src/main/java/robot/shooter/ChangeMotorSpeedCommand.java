@@ -20,6 +20,10 @@ addRequirements(motor);
 
     }
 
+    private void addRequirements(CANSparkMax motor2) {
+        throw new UnsupportedOperationException("Unimplemented method 'addRequirements'");
+    }
+
     @Override
     public void initialize() {
         motor.set(speed);
