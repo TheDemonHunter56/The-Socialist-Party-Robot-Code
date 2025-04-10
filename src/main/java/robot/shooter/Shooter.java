@@ -23,7 +23,7 @@ public class Shooter extends SubsystemBase {
         buttonB.whenPressed(new ChangeMotorSpeedCommand(rightShooter));
         
     }
-    driver.a().onTrue(new ChangeMotorSpeedCommand(shooter));
+ 
 
     public void setShooterSpeed(double speed) {
         rightShooter.set(speed);
