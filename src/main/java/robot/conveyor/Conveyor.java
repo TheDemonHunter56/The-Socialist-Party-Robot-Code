@@ -16,7 +16,7 @@ public class Conveyor extends SubsystemBase {
     
     public Conveyor() {
         for (CANSparkMax spark : List.of(Leader, Follower)) {
-            spark.restoreFactoryDefaults();q
+            spark.restoreFactoryDefaults();
         }
         Follower.follow(Leader);
         Follower.setInverted(true);

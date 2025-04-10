@@ -6,6 +6,7 @@ public class Intake extends SubsystemBase{
     public final IntakeIO hardware;
 
     public Intake(IntakeIO hardware) {
+        
         this.hardware = hardware;
     }
     
