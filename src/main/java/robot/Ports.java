@@ -25,4 +25,9 @@ public final class Ports {
   
   }
 
+  public static final class Conveyor {
+    public static final int CONVEYOR_LEADER = 9;
+    public static final int CONVEYOR_FOLLOWER = 10;
+  }
+
 }
