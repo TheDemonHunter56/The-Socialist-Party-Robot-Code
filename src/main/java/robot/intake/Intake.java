@@ -1,11 +1,20 @@
 package robot.intake;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import robot.Ports;
-
 
 public class Intake extends SubsystemBase{
-    public static final CANSparkMax Roll = new CANSparkMax(Ports.Intake.ROLL, MotorType.kBrushless);
+    public final IntakeIO hardware;
+
+    public Intake(IntakeIO hardware) {
+        
+        this.hardware = hardware;
+    }
+    
+    public Command startMotor() {
+        return run(() -> hardware.setPower(1));
+    }
+
+    public Command stopMotor() {
+       return run(() -> hardware.setPower(0));
+    }
 }
