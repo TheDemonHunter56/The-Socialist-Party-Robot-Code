@@ -21,9 +21,16 @@ public class Shooter extends SubsystemBase {
     private void configureBindings() {
         JoystickButton buttonB = new JoystickButton(joystick, 2);
         buttonB.whenPressed(new ChangeMotorSpeedCommand(rightShooter));
+        
     }
+    driver.a().onTrue(new ChangeMotorSpeedCommand(shooter));
+
+    public void setShooterSpeed(double speed) {
+        rightShooter.set(speed);
+    }
+
+}
+
 }
 
 
-
-}
