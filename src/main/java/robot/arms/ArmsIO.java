@@ -1,21 +1,25 @@
-package robot.Arms;
+package robot.arms;
 
 public interface ArmsIO {
+    //*Returns the angle of the arm in degrees */
+    public double currentAngle();
     /**
-     * @return the position of the arm in degrees from starting angle. 
-     */
-    public double position();
+     * Stops the arms from moving 
+    */
+    public void stopArms();
+    /** 
+     * resets arm to starting poisiton */
+    public void reset();
+
     /**
-     * Changes the limit of the motor 
-     * (Ie. changes how fast the motor can possibly move)
-     */
-    public void setVoltage();
+     * starts clamping the coral*/
+    public void setClampPower(double power);
      /**
      * Moves the arm into position in degrees
     */
-    public void movearm();
+    public void moveTargetDegrees(double DegreesFromTarget);
     /**
-     * Moves the arm into position in degrees
+     * stops clamping the coral
     */
-    public void setArms();
+    public void stopClamp();
 }

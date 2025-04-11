@@ -1,32 +1,66 @@
-package robot.Arms;
+package robot.arms;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import edu.wpi.first.wpilibj.Encoder;
-import robot.Ports;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkRelativeEncoder;
 
 
 public class RealArms implements ArmsIO{
-    // Maybe add PIDController for pressure
-    private final static CANSparkMax arm = new CANSparkMax(Ports.Arms.Leftarm, MotorType.kBrushless);
-    private final static Encoder ENCODER = new Encoder(null, null); //subject to change 
+    private CANSparkMax leftMotor;
+    private CANSparkMax rightMotor;
+    private RelativeEncoder Encoder;
 
-    public void setArms(){ // Resets setting to facotry 
-        arm.restoreFactoryDefaults();
-        ENCODER.reset();
-    }
-    /**
-     * @return the position of the arm in degrees from starting angle. 
-     */
-    public double position(){
-        return 0;
+    public void ArmStart(){
+        leftMotor = new CANSparkMax(1, MotorType.kBrushless);
+        rightMotor = new CANSparkMax(1, MotorType.kBrushless);
+        Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);
+        rightMotor.follow(leftMotor, true);
     }
 
-    public void setVoltage(){
-
+    @Override
+    public void reset(){
+        leftMotor.restoreFactoryDefaults();
+        rightMotor.restoreFactoryDefaults();
+        Encoder.setPosition(0);
     }
- 
-    public void movearm(){
 
+    @Override
+    public double currentAngle(){
+        //Returns the position of the motor rotation in degrees
+        double rotation = Encoder.getPosition();
+        return rotation*360;
     }
 
+    @Override
+    public void stopArms(){
+        leftMotor.stopMotor();
+        rightMotor.stopMotor();
+    }
+
+    @Override
+    public void setClampPower(double power){
+        //*Sets how strongly the motor grips the coral + How fast it moves */
+        leftMotor.setVoltage(power);
+    }
+
+    @Override
+    public void stopClamp(){
+        leftMotor.stopMotor();
+    }
+
+    @Override
+    //moves the arm to the target degrees
+    public void moveTargetDegrees(double targetDegrees){
+        double degreesFromTarget = targetDegrees - currentAngle();
+        //moves the arm to the target degrees
+        while(degreesFromTarget != 0){
+            if(degreesFromTarget > 0){
+                leftMotor.setVoltage(0.5);
+            }
+            else if(degreesFromTarget < 0){
+                leftMotor.setVoltage(-0.5);
+            }
+        }
+        stopArms();
+    }
 }
