@@ -11,5 +11,5 @@ public double velocity() {
     return 0;
 }
 
-public void setVoltage(0) {}
+public void setVoltage() {}
 }
