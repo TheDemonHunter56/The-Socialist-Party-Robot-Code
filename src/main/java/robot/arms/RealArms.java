@@ -41,11 +41,13 @@ public class RealArms implements ArmsIO{
     public void setClampPower(double power){
         //*Sets how strongly the motor grips the coral + How fast it moves */
         leftMotor.setVoltage(power);
+        rightMotor.setVoltage(power); //assuming the motors are in sync
     }
 
     @Override
     public void stopClamp(){
         leftMotor.stopMotor();
+        rightMotor.stopMotor();
     }
 
     @Override
@@ -60,6 +62,7 @@ public class RealArms implements ArmsIO{
             else if(degreesFromTarget < 0){
                 leftMotor.setVoltage(-0.5);
             }
+            degreesFromTarget = targetDegrees - currentAngle();
         }
         stopArms();
     }
