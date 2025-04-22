@@ -1,4 +1,4 @@
-package robot.Arms;
+package robot.arms;
 
 import com.pathplanner.lib.util.PIDConstants;
 
