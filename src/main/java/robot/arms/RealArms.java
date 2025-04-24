@@ -17,24 +17,12 @@ public class RealArms implements ArmsIO{
         rightMotor.follow(leftMotor, true);
     }
 
-    @Override
-    public void reset(){
-        leftMotor.restoreFactoryDefaults();
-        rightMotor.restoreFactoryDefaults();
-        Encoder.setPosition(0);
-    }
+
 
     @Override
     public double currentAngle(){
         //Returns the position of the motor rotation in degrees
-        double rotation = Encoder.getPosition();
-        return rotation*360;
-    }
-
-    @Override
-    public void stopArms(){
-        leftMotor.stopMotor();
-        rightMotor.stopMotor();
+        return Encoder.getPosition();
     }
 
     @Override
@@ -43,27 +31,11 @@ public class RealArms implements ArmsIO{
         leftMotor.setVoltage(power);
         rightMotor.setVoltage(power); //assuming the motors are in sync
     }
-
     @Override
-    public void stopClamp(){
-        leftMotor.stopMotor();
-        rightMotor.stopMotor();
+    public void setVoltage(double voltage){
+        //*Sets the voltage of the motors */
+        leftMotor.setVoltage(voltage);
+        rightMotor.setVoltage(voltage); //assuming the motors are in sync
     }
 
-    @Override
-    //moves the arm to the target degrees
-    public void moveTargetDegrees(double targetDegrees){
-        double degreesFromTarget = targetDegrees - currentAngle();
-        //moves the arm to the target degrees
-        while(degreesFromTarget != 0){
-            if(degreesFromTarget > 0){
-                leftMotor.setVoltage(0.5);
-            }
-            else if(degreesFromTarget < 0){
-                leftMotor.setVoltage(-0.5);
-            }
-            degreesFromTarget = targetDegrees - currentAngle();
-        }
-        stopArms();
-    }
 }
