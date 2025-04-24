@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import robot.Ports;
 
 public class Shooter extends SubsystemBase {
-        private final CANSparkMax rightShooter = new CANSparkMax(Ports.Drive.rightShooter, MotorType.kBrushless);
+        private final CANSparkMax rightShooter = new CANSparkMax(Ports.Shooter.RightShooter, MotorType.kBrushless);
     private final Joystick joystick;
 
     public Shooter(Joystick joystick) {
@@ -18,12 +18,9 @@ public class Shooter extends SubsystemBase {
         configureBindings();
     }
 
-    private void configureBindings() {
-        JoystickButton buttonB = new JoystickButton(joystick, 2);
-        buttonB.whenPressed(new ChangeMotorSpeedCommand(rightShooter));
-    }
+   
 }
 
 
 
-}
+

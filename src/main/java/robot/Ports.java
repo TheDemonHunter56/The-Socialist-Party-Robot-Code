@@ -13,6 +13,7 @@ public final class Ports {
     public static final int RIGHT_FOLLOWER = 3;
     public static final int LEFT_LEADER = 4;
     public static final int LEFT_FOLLOWER = 5;
+    
   }
 
   public static final class Intake {
@@ -28,6 +29,7 @@ public final class Ports {
   public static final class Shooter {
     public static final int rightShooter = 9;
     public static final int leftShooter = 10;
+    public static int RightShooter;
   }
 
   public static final class Conveyor {

@@ -5,7 +5,10 @@ package robot.shooter;
 
 import com.revrobotics.CANSparkMax;
 
-public class ChangeMotorSpeedCommand {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+@SuppressWarnings("removal")
+public class ChangeMotorSpeedCommand extends CommandBase {
 
     private final CANSparkMax motor;
     private final double speed; 
