@@ -1,32 +1,17 @@
 package robot.arms;
 
 public class NoArms implements ArmsIO {
-
-    public void ArmStart() {
-        // No arms to start
-    }
-
-    public void reset() {
-        // No arms to reset
-    }
-
+    @Override
     public double currentAngle() {
-        return 0; // No angle to return
+        // No arms, so always return 0
+        return 0.0;
     }
-
-    public void stopArms() {
-        // No arms to stop
+    @Override
+    public void setVoltage(double voltage) {
+        // No arms, so do nothing
     }
-
-    public void setClampPower(double power) {
-        // No clamp to set power for
-    }
-
-    public void stopClamp() {
-        // No clamp to stop
-    }
-
-    public void moveTargetDegrees(double targetDegrees) {
-        // No target degrees to move to
+    @Override
+    public void getVelocity() {
+        // No arms, so do nothing
     }
 }

@@ -21,21 +21,19 @@ public class RealArms implements ArmsIO{
 
     @Override
     public double currentAngle(){
-        //Returns the position of the motor rotation in degrees
+        //Returns the position of the motor rotation in radians
         return Encoder.getPosition();
     }
 
-    @Override
-    public void setClampPower(double power){
-        //*Sets how strongly the motor grips the coral + How fast it moves */
-        leftMotor.setVoltage(power);
-        rightMotor.setVoltage(power); //assuming the motors are in sync
-    }
     @Override
     public void setVoltage(double voltage){
         //*Sets the voltage of the motors */
         leftMotor.setVoltage(voltage);
         rightMotor.setVoltage(voltage); //assuming the motors are in sync
     }
-
+    @Override
+    public void getVelocity(){
+        //*Returns the velocity of the motors in degrees per second */
+        Encoder.getVelocity();
+    }
 }
