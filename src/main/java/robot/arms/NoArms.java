@@ -10,9 +10,11 @@ public class NoArms implements ArmsIO {
     public void setClampPower(double power) {
     }
 
-    @Override
-    public void setVoltage(double Voltage) {
+    public void stopClamp() {
+        // No clamp to stop
     }
 
-    
+    public void moveTargetDegrees(double targetDegrees) {
+        // No target degrees to move to
+    }
 }

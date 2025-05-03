@@ -1,4 +1,4 @@
-//Please note that this file is manually improted from the Arms branch not the current arms branch. The contribution for this file goes to the original author: xenonerias
+//Please note that this file is manually improted from the Arms branch not the current arms branch. The contribution for this file goes to the original author: xenonerias + aaron
 
 package robot.arms;
 
