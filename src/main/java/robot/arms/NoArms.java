@@ -3,11 +3,9 @@ package robot.arms;
 public class NoArms implements ArmsIO {
 
     @Override
-    public void currentAngle() {;
-    }
-
-    @Override
-    public void setClampPower(double power) {
+    public double currentAngle() {;
+        // No arms, so always return 0
+        return 0.0;
     }
 
     public void stopClamp() {
@@ -16,5 +14,13 @@ public class NoArms implements ArmsIO {
 
     public void moveTargetDegrees(double targetDegrees) {
         // No target degrees to move to
+    }
+
+    @Override
+    public void setVoltage(double Voltage) {
+    }
+
+    @Override
+    public void getVelocity() {
     }
 }
