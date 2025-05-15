@@ -1,19 +1,13 @@
 package robot.arms;
 
-import static org.junit.jupiter.api.DynamicContainer.dynamicContainer;
 
 import java.util.function.DoubleSupplier;
 
-import org.opencv.core.Mat;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.units.Measure;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import robot.Robot;
 
 public class Arms extends SubsystemBase{
     private final ArmsIO hardware;
