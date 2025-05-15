@@ -32,13 +32,9 @@ public class Drive extends SubsystemBase{
         leftLeader.setInverted(true); 
   }
     //Applies voltage to the motors, uses percentages with range -1 < X < 1
-    private void arcadeDrive(XboxController driverController) {
-        double forwardPower = driverController.getY(Hand.kLeft);
-        double turnPower = driverController.getX(Hand.kRight);
-        
-        if (driverController.getBumper(Hand.kLeft)) turnPower *= 0.5;
-
-        
+    private void moveRobot(double leftSpeed, double rightSpeed) {
+        leftLeader.set(leftSpeed);
+        rightLeader.set(rightSpeed);
     }
 
     //stops the robot from moving
@@ -54,7 +50,7 @@ public class Drive extends SubsystemBase{
 
     //actual method that will return the command
     public Command drive(DoubleSupplier vLeft, DoubleSupplier vRight){
-        return run(() -> drive(vLeft.getAsDouble(), vRight.getAsDouble()));
+        return run(() -> moveRobot(vLeft.getAsDouble(), vRight.getAsDouble()));
     }
 
 }
