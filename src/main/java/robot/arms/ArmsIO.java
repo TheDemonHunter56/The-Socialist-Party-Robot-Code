@@ -10,4 +10,5 @@ public interface ArmsIO {
      * Get volicity of the motors
      */
     public void getVelocity();
+    public void resetEncoders();
 }

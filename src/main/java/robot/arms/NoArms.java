@@ -14,4 +14,8 @@ public class NoArms implements ArmsIO {
     public void getVelocity() {
         // No arms, so do nothing
     }
+    @Override
+    public void resetEncoders() {
+        // No arms, so do nothing
+    }
 }

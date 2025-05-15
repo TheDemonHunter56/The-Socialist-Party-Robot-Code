@@ -1,4 +1,6 @@
 package robot.arms;
+import java.util.List;
+
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -13,10 +15,7 @@ public class RealArms implements ArmsIO{
     public void ArmStart(){
         leftMotor = new CANSparkMax(1, MotorType.kBrushless);
         rightMotor = new CANSparkMax(1, MotorType.kBrushless);
-        Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);
-        rightMotor.follow(leftMotor, true);
-    }
-
+        Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);}
 
 
     @Override
@@ -35,5 +34,10 @@ public class RealArms implements ArmsIO{
     public void getVelocity(){
         //*Returns the velocity of the motors in degrees per second */
         Encoder.getVelocity();
+    }
+    @Override
+    public void resetEncoders(){
+        //*Resets the encoder to 0 */
+        Encoder.setPosition(0);
     }
 }

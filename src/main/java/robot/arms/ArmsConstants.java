@@ -21,12 +21,12 @@ import edu.wpi.first.units.Units;
 public class ArmsConstants extends SubsystemBase{
 
   public static final double THROUGHBORE_GEARING = 16.0 / 54.0;
-  public static final Measure<Angle> POSITION_FACTOR = Units.Rotations.of(THROUGHBORE_GEARING);
+  public static final Measure<Angle> POSITION_FACTOR = Units.Rotations.of(THROUGHBORE_GEARING); //what is this?
     public static final Measure<Velocity<Angle>> VELOCITY_FACTOR = POSITION_FACTOR.per(Units.Minute);
 
-public static final Measure<Angle> STARTING_ANGLE = Units.Degrees.of(10);
+    public static final Measure<Angle> STARTING_ANGLE = Units.Degrees.of(0);
 
-  public static final Measure<Angle> MIN_ANGLE = Units.Degrees.of(0);
+  public static final Measure<Angle> MIN_ANGLE = STARTING_ANGLE;//redundant?
   public static final Measure<Angle> MAX_ANGLE = Units.Degrees.of(180);
 
 public static final double DEFAULT_SPEED = 1;
@@ -37,8 +37,14 @@ public static final double MAX_TORQUE = 1;
 
 public static final double STARTING_VOLTAGE = 0;
 public static final double MAX_VOLTAGE = 12;
-//*based off of NEO nominal voltage*/
 
+//values for the PID controller are randomly chosen. Need to be tuned
+public static final double kP = 0.1;
+public static final double kI = 0.1;
+public static final double kD = 0.0;
+
+
+//*based off of NEO nominal voltage*/
 
 
 
