@@ -1,5 +1,4 @@
 package robot.arms;
-import java.util.List;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
