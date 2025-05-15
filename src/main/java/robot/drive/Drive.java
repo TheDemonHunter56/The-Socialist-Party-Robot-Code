@@ -20,30 +20,26 @@ public class Drive extends SubsystemBase{
     private final CANSparkMax rightLeader = new CANSparkMax(Ports.Drive.RIGHT_LEADER, MotorType.kBrushless);
     private final CANSparkMax rightFollower = new CANSparkMax(Ports.Drive.RIGHT_FOLLOWER, MotorType.kBrushless);
 
-    //reseting motors to factory standards
+    //reseting motors to factory standards + canceling out joystick noise
     public Drive() {
         for (CANSparkMax spark : List.of(leftLeader, leftFollower, rightLeader, rightFollower)) {
             spark.restoreFactoryDefaults();
             spark.setIdleMode(IdleMode.kBrake);
+            spark.setDeadband(0.1); //sets a threshold below which input values are treated as 0 
         }
         rightFollower.follow(rightLeader);
         leftFollower.follow(leftLeader);
-        leftLeader.setInverted(true);
+        leftLeader.setInverted(true); 
   }
     //Applies voltage to the motors, uses percentages with range -1 < X < 1
-    private void drive(double leftSpeed, double rightSpeed) {
-        //If someone puts in a speed that is greater than or less than 1/-1 for both speeds
-        if (leftSpeed > 1) leftSpeed = 1;
-        if (leftSpeed < -1) leftSpeed = -1;
-        if (rightSpeed > 1) rightSpeed = 1;
-        if (rightSpeed < -1) rightSpeed = -1;
-        //If the joystick is in the middle but doesn't give the value of exactly 0
-        if (Math.abs(leftSpeed) > 0.1) && (Math.abs(rightSpeed) > 0.1) {
-            leftLeader.set(leftSpeed);
-            rightLeader.set(rightSpeed);
-        } else {
-            stop()
-        }
+    private void arcadeDrive(XboxController driverController) {
+        double forwardPower = driverController.getY(Hand.kLeft);
+        double turnPower = driverController.getX(Hand.kRight);
+        
+        if (driverController.getBumper(Hand.kLeft)) turnPower *= 0.5;
+
+        
+    }
 
     //stops the robot from moving
     public void stop() {
@@ -55,8 +51,7 @@ public class Drive extends SubsystemBase{
     public double getSpeed() {
         return (leftLeader.get(), rightLeader.get())
     }
-            
-  }
+
     //actual method that will return the command
     public Command drive(DoubleSupplier vLeft, DoubleSupplier vRight){
         return run(() -> drive(vLeft.getAsDouble(), vRight.getAsDouble()));
