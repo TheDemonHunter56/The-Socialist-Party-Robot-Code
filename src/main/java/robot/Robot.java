@@ -35,11 +35,15 @@ public class Robot extends CommandRobot implements Logged {
   private final PowerDistribution pdh = new PowerDistribution();
 
   // SUBSYSTEMS
-  private final Drive drive = new Drive();
+
+  public static Drive drive = new Drive();
   private final Arms arms = Arms.create();
  
 
+
   // COMMANDS
+
+
 
   /** The robot contains subsystems, OI devices, and commands. */
   public Robot() {
@@ -75,7 +79,8 @@ public class Robot extends CommandRobot implements Logged {
 
   /** Configures trigger -> command bindings. */
   private void configureBindings() {
-    drive.setDefaultCommand(drive.drive(driver::getLeftY, driver::getRightY));
+
+    drive.setDefaultCommand(drive.moveRobot(driver::getLeftY, driver::getRightY));
 
     //Arm button bindings for clamping and releasing
     operator.a()
@@ -92,6 +97,7 @@ public class Robot extends CommandRobot implements Logged {
     //Arm button binding to reset to a specific angle 
     operator.x()
       .onTrue(arms.returnToStart());
+
 
   }
   /**

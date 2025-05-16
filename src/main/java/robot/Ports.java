@@ -3,7 +3,7 @@ package robot;
 // Note: the Ports aren't final. Subject to change based on the hardware.
 
 public final class Ports {
-  public static final class IO {
+  public static final class OI {
     public static final int OPERATOR = 0;
     public static final int DRIVER = 1;
     public static final int Upbutton = 12;
@@ -15,7 +15,7 @@ public final class Ports {
     public static final int RIGHT_FOLLOWER = 3;
     public static final int LEFT_LEADER = 4;
     public static final int LEFT_FOLLOWER = 5;
-    
+
   }
 
   public static final class Intake {
