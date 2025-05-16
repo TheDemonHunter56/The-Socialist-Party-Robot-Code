@@ -6,6 +6,8 @@ public final class Ports {
   public static final class IO {
     public static final int OPERATOR = 0;
     public static final int DRIVER = 1;
+    public static final int Upbutton = 12;
+    public static final int Downbutton = 13;
   }
 
   public static final class Drive {

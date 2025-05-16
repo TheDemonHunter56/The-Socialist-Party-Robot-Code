@@ -1,9 +1,15 @@
 package robot.arms;
 
+import java.util.List;
+
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import robot.Ports;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 
 public class RealArms implements ArmsIO{
@@ -11,12 +17,19 @@ public class RealArms implements ArmsIO{
     private CANSparkMax rightMotor;
     private RelativeEncoder Encoder;
 
-    public void ArmStart(){
-        leftMotor = new CANSparkMax(1, MotorType.kBrushless);
-        rightMotor = new CANSparkMax(1, MotorType.kBrushless);
-        Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);}
-
-
+    public RealArms(){
+        leftMotor = new CANSparkMax(Ports.Arms.Leftarm, MotorType.kBrushless);
+        rightMotor = new CANSparkMax(Ports.Arms.Rightarm, MotorType.kBrushless);
+        Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);
+        Encoder.setPositionConversionFactor(ArmsConstants.POSITION_FACTOR); // Set the conversion factor to 1.0 for radians
+        Encoder.setPositionConversionFactor(ArmsConstants.POSITION_FACTOR); // Set the conversion factor to 1.0 for radians
+        rightMotor.follow(leftMotor, true); //assuming the motors are in sync
+        for (CANSparkMax spark : List.of(leftMotor, rightMotor)) {
+            spark.restoreFactoryDefaults();
+            spark.setIdleMode(IdleMode.kBrake);
+        }
+    }
+    
     @Override
     public double currentAngle(){
         //Returns the position of the motor rotation in radians
@@ -30,13 +43,18 @@ public class RealArms implements ArmsIO{
         rightMotor.setVoltage(voltage); //assuming the motors are in sync
     }
     @Override
-    public void getVelocity(){
-        //*Returns the velocity of the motors in degrees per second */
-        Encoder.getVelocity();
+    public double getVelocity(){
+        //*Returns the velocity of the motors in Radian per second */
+        return Encoder.getVelocity();
     }
     @Override
     public void resetEncoders(){
         //*Resets the encoder to 0 */
         Encoder.setPosition(0);
+    }
+    @Override
+    public void setEncoder(double value){
+        //*Sets the encoder to a specific value */
+        Encoder.setPosition(value);
     }
 }

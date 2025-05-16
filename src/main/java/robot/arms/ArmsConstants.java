@@ -21,8 +21,8 @@ import edu.wpi.first.units.Units;
 public class ArmsConstants extends SubsystemBase{
 
   public static final double THROUGHBORE_GEARING = 16.0 / 54.0;
-  public static final Measure<Angle> POSITION_FACTOR = Units.Rotations.of(THROUGHBORE_GEARING); //what is this?
-    public static final Measure<Velocity<Angle>> VELOCITY_FACTOR = POSITION_FACTOR.per(Units.Minute);
+  public static final double POSITION_FACTOR = Units.Radian.of(THROUGHBORE_GEARING * 2 * Math.PI).in(Units.Radian); //what is this? (Made some changes used for the encoder. See RealArms.java)
+  public static final double VELOCITY_FACTOR = Units.RadiansPerSecond.of((THROUGHBORE_GEARING * 2 * Math.PI) /60).in(Units.RadiansPerSecond);
 
     public static final Measure<Angle> STARTING_ANGLE = Units.Degrees.of(0);
 
@@ -42,7 +42,7 @@ public static final double MAX_VOLTAGE = 12;
 public static final double kP = 0.1;
 public static final double kI = 0.1;
 public static final double kD = 0.0;
-
+public static final double Tolerance = 0.05;
 
 //*based off of NEO nominal voltage*/
 
