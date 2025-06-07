@@ -1,12 +1,17 @@
 package robot.arms;
+import static robot.drive.DriveConstants.MAX_SPEED;
+
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.units.Angle;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robot.Robot;
+import robot.arms.ArmsConstants.FF;
 
 
 public class Arms extends SubsystemBase{
@@ -14,7 +19,7 @@ public class Arms extends SubsystemBase{
     private double targetAngle;
 
     private final PIDController pid = new PIDController(ArmsConstants.kP, ArmsConstants.kI, ArmsConstants.kD);
-
+    private final ArmFeedforward feedforward = new ArmFeedforward(FF.kS, FF.kG, FF.kV);
     //Constructor for the arms object
     public Arms(ArmsIO hardware) {
         this.hardware = hardware;
@@ -35,7 +40,9 @@ public class Arms extends SubsystemBase{
 
     private void update(double goal){
         double targetRadians = MathUtil.clamp(goal, ArmsConstants.MIN_ANGLE.in(edu.wpi.first.units.Units.Radians), ArmsConstants.MAX_ANGLE.in(edu.wpi.first.units.Units.Radians));
-        double voltage = pid.calculate(hardware.currentAngle(), targetRadians);
+        double PIDvoltage = pid.calculate(hardware.getVelocity(), targetRadians);
+        double FFvoltage = feedforward.calculate(targetRadians, hardware.getVelocity());
+        double voltage = PIDvoltage + FFvoltage;
         hardware.setVoltage(voltage);
     }
 

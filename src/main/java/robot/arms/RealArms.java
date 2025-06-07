@@ -19,6 +19,7 @@ public class RealArms implements ArmsIO{
         rightMotor = new CANSparkMax(Ports.Arms.Rightarm, MotorType.kBrushless);
         Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);
         Encoder.setPositionConversionFactor(ArmsConstants.POSITION_FACTOR); // Set the conversion factor to 1.0 for radians
+        Encoder.setVelocityConversionFactor(ArmsConstants.VELOCITY_FACTOR); //Converts rotation in radians per second
         rightMotor.follow(leftMotor, true); //assuming the motors are in sync
         for (CANSparkMax spark : List.of(leftMotor, rightMotor)) {
             spark.restoreFactoryDefaults();

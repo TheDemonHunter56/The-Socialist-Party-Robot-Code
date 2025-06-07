@@ -38,6 +38,12 @@ public static final double MAX_TORQUE = 1;
 public static final double STARTING_VOLTAGE = 0;
 public static final double MAX_VOLTAGE = 12;
 
+public static final class FF{
+  public static final double kS = 2; //Static gained in volts 
+  public static final double kG = 0; //gravity gained in volts 
+  public static final double kV = 1;  // V/(rads/sec) = kV
+}
+
 //values for the PID controller are randomly chosen. Need to be tuned
 public static final double kP = 0.1;
 public static final double kI = 0.0;
