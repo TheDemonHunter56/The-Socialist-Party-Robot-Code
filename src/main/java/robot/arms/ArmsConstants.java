@@ -40,8 +40,8 @@ public static final double MAX_VOLTAGE = 12;
 
 //values for the PID controller are randomly chosen. Need to be tuned
 public static final double kP = 0.1;
-public static final double kI = 0.1;
-public static final double kD = 0.0;
+public static final double kI = 0.0;
+public static final double kD = 0.1;
 public static final double Tolerance = 0.05;
 
 //*based off of NEO nominal voltage*/

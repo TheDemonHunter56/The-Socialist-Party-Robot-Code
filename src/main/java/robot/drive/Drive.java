@@ -3,29 +3,31 @@ package robot.drive;
 import java.util.List;
 import java.util.function.DoubleSupplier;
 
-import javax.sound.sampled.Port;
-
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robot.Ports;
-import math;
+import static robot.drive.DriveConstants.POSITION_FACTOR;
+import static robot.drive.DriveConstants.VELOCITY_FACTOR;
+
 
 public class Drive extends SubsystemBase{
+    //hardware
     private final CANSparkMax leftLeader = new CANSparkMax(Ports.Drive.LEFT_LEADER, MotorType.kBrushless);
     private final CANSparkMax leftFollower = new CANSparkMax(Ports.Drive.LEFT_FOLLOWER, MotorType.kBrushless);
     private final CANSparkMax rightLeader = new CANSparkMax(Ports.Drive.RIGHT_LEADER, MotorType.kBrushless);
     private final CANSparkMax rightFollower = new CANSparkMax(Ports.Drive.RIGHT_FOLLOWER, MotorType.kBrushless);
+    private final RelativeEncoder leftEncoder = leftLeader.getEncoder();
+    private final RelativeEncoder rightEncoder = rightLeader.getEncoder();
 
     //reseting motors to factory standards + canceling out joystick noise
     public Drive() {
         for (CANSparkMax spark : List.of(leftLeader, leftFollower, rightLeader, rightFollower)) {
             spark.restoreFactoryDefaults();
             spark.setIdleMode(IdleMode.kBrake);
-            spark.setDeadband(0.1); //sets a threshold below which input values are treated as 0 
         }
         rightFollower.follow(rightLeader);
         leftFollower.follow(leftLeader);

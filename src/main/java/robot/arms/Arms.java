@@ -6,6 +6,7 @@ import edu.wpi.first.units.Angle;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import robot.Robot;
 
 
 public class Arms extends SubsystemBase{
@@ -26,7 +27,7 @@ public class Arms extends SubsystemBase{
 
     //Creats new or nonexistent arms object
     public static Arms create(){
-        return new Arms(new RealArms());
+        return new Arms(Robot.isReal() ? new RealArms() : new NoArms());
     }
     public static Arms none(){
         return new Arms(new NoArms());
@@ -73,6 +74,8 @@ public class Arms extends SubsystemBase{
 
     //Moves arm to the starting position
     public Command returnToStart(){
-        return moveArm(ArmsConstants.STARTING_ANGLE).withName("Starting position");
+        return moveArm(ArmsConstants.STARTING_ANGLE)
+        .finallyDo(() -> hardware.resetEncoders())
+        .withName("Starting position");
     }
 }

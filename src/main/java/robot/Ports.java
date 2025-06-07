@@ -29,9 +29,7 @@ public final class Ports {
   }
 
   public static final class Shooter {
-    public static final int rightShooter = 9;
-    public static final int leftShooter = 10;
-    public static int RightShooter;
+    public static final int Shooter = 11;
   }
 
   public static final class Conveyor {
@@ -40,3 +38,4 @@ public final class Ports {
   }
 
 }
+

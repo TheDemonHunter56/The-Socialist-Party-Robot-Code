@@ -1,11 +1,8 @@
 package robot.arms;
 
 import java.util.List;
-
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import robot.Ports;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
@@ -22,12 +19,12 @@ public class RealArms implements ArmsIO{
         rightMotor = new CANSparkMax(Ports.Arms.Rightarm, MotorType.kBrushless);
         Encoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor,1);
         Encoder.setPositionConversionFactor(ArmsConstants.POSITION_FACTOR); // Set the conversion factor to 1.0 for radians
-        Encoder.setPositionConversionFactor(ArmsConstants.POSITION_FACTOR); // Set the conversion factor to 1.0 for radians
         rightMotor.follow(leftMotor, true); //assuming the motors are in sync
         for (CANSparkMax spark : List.of(leftMotor, rightMotor)) {
             spark.restoreFactoryDefaults();
             spark.setIdleMode(IdleMode.kBrake);
         }
+        
     }
     
     @Override
