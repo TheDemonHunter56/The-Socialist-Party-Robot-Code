@@ -23,36 +23,26 @@ public class Drive extends SubsystemBase{
     private final RelativeEncoder leftEncoder = leftLeader.getEncoder();
     private final RelativeEncoder rightEncoder = rightLeader.getEncoder();
 
-    //reseting motors to factory standards + canceling out joystick noise
     public Drive() {
         for (CANSparkMax spark : List.of(leftLeader, leftFollower, rightLeader, rightFollower)) {
             spark.restoreFactoryDefaults();
             spark.setIdleMode(IdleMode.kBrake);
         }
-        rightFollower.follow(rightLeader);
-        leftFollower.follow(leftLeader);
-        leftLeader.setInverted(true); 
+      rightFollower.follow(rightLeader);
+      leftFollower.follow(leftLeader);
+      leftLeader.setInverted(true); 
+      rightEncoder.setPositionConversionFactor(POSITION_FACTOR);
+      leftEncoder.setVelocityConversionFactor(VELOCITY_FACTOR);
+      rightEncoder.setVelocityConversionFactor(VELOCITY_FACTOR);
   }
     //Applies voltage to the motors, uses percentages with range -1 < X < 1
-    private void moveRobot(double leftSpeed, double rightSpeed) {
+    private void drive(double leftSpeed, double rightSpeed) {
         leftLeader.set(leftSpeed);
         rightLeader.set(rightSpeed);
     }
-
-    //stops the robot from moving
-    public void stop() {
-        leftLeader.set(0);
-        rightLeader.set(0);
-    }
-
-    //returns (leftSpeed, rightSpeed)
-    public double getSpeed() {
-        return (leftLeader.get(), rightLeader.get())
-    }
-
     //actual method that will return the command
     public Command drive(DoubleSupplier vLeft, DoubleSupplier vRight){
-        return run(() -> moveRobot(vLeft.getAsDouble(), vRight.getAsDouble()));
+        return run(() -> drive(vLeft.getAsDouble(), vRight.getAsDouble()));
     }
 
 }

@@ -29,8 +29,8 @@ import robot.drive.Drive;
  */
 public class Robot extends CommandRobot implements Logged {
   // INPUT DEVICES
-  private final CommandXboxController operator = new CommandXboxController(Ports.IO.OPERATOR);
-  private final CommandXboxController driver = new CommandXboxController(Ports.IO.DRIVER);
+  private final CommandXboxController operator = new CommandXboxController(Ports.OI.OPERATOR);
+  private final CommandXboxController driver = new CommandXboxController(Ports.OI.DRIVER);
 
   private final PowerDistribution pdh = new PowerDistribution();
 
@@ -80,7 +80,7 @@ public class Robot extends CommandRobot implements Logged {
   /** Configures trigger -> command bindings. */
   private void configureBindings() {
 
-    drive.setDefaultCommand(drive.moveRobot(driver::getLeftY, driver::getRightY));
+    drive.setDefaultCommand(drive.drive(driver::getLeftY, driver::getRightY));
 
     //Arm button bindings for clamping and releasing
     operator.a()
