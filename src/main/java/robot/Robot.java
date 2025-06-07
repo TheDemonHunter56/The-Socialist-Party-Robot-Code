@@ -20,7 +20,7 @@ import monologue.Monologue;
 import org.littletonrobotics.urcl.URCL;
 import robot.arms.Arms;
 import robot.drive.Drive;
- 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -38,12 +38,8 @@ public class Robot extends CommandRobot implements Logged {
 
   public static Drive drive = new Drive();
   private final Arms arms = Arms.create();
- 
-
 
   // COMMANDS
-
-
 
   /** The robot contains subsystems, OI devices, and commands. */
   public Robot() {
@@ -82,24 +78,18 @@ public class Robot extends CommandRobot implements Logged {
 
     drive.setDefaultCommand(drive.drive(driver::getLeftY, driver::getRightY));
 
-    //Arm button bindings for clamping and releasing
-    operator.a()
-      .whileTrue(arms.clampHold());
-    operator.b()
-      .onTrue(arms.clampRelease());
+    // Arm button bindings for clamping and releasing
+    operator.a().whileTrue(arms.clampHold());
+    operator.b().onTrue(arms.clampRelease());
 
-    //Arm arrow button bindings for moving the arm up and down
-    operator.povUp()
-      .toggleOnTrue(arms.manualMoveArm(() -> 1.0, () -> 0.0));
-    operator.povDown()
-      .toggleOnTrue(arms.manualMoveArm(() -> 0.0, () -> 1.0));
+    // Arm arrow button bindings for moving the arm up and down
+    operator.povUp().toggleOnTrue(arms.manualMoveArm(() -> 1.0, () -> 0.0));
+    operator.povDown().toggleOnTrue(arms.manualMoveArm(() -> 0.0, () -> 1.0));
 
-    //Arm button binding to reset to a specific angle 
-    operator.x()
-      .onTrue(arms.returnToStart());
-
-
+    // Arm button binding to reset to a specific angle
+    operator.x().onTrue(arms.returnToStart());
   }
+
   /**
    * Command factory to make both controllers rumble.
    *

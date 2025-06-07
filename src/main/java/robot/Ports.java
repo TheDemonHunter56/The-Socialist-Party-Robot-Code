@@ -4,17 +4,17 @@ package robot;
 
 public final class Ports {
   public static final class OI {
-    public static final int OPERATOR = 0;
+    public static final int OPERATOR = 2;
     public static final int DRIVER = 1;
   }
+
   public static final class Drive {
     public static final int RIGHT_LEADER = 2;
     public static final int RIGHT_FOLLOWER = 3;
     public static final int LEFT_LEADER = 4;
     public static final int LEFT_FOLLOWER = 5;
-    public static final int GYRO_CHANNEL = 15;
+    public static final int GYRO_CHANNEL = 0;
   }
-
 
   public static final class Intake {
     public static final int ROLL = 6;
@@ -23,7 +23,6 @@ public final class Ports {
   public static final class Arms {
     public static final int Leftarm = 7;
     public static final int Rightarm = 8;
-  
   }
 
   public static final class Shooter {
@@ -34,6 +33,4 @@ public final class Ports {
     public static final int CONVEYOR_LEADER = 9;
     public static final int CONVEYOR_FOLLOWER = 10;
   }
-
 }
-
