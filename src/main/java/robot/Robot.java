@@ -3,6 +3,8 @@ package robot;
 import static edu.wpi.first.units.Units.Seconds;
 import static robot.Constants.PERIOD;
 
+import org.littletonrobotics.urcl.URCL;
+
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -17,10 +19,9 @@ import lib.CommandRobot;
 import lib.FaultLogger;
 import monologue.Logged;
 import monologue.Monologue;
-import org.littletonrobotics.urcl.URCL;
-import robot.Ports.OI;
+import robot.arms.Arms;
 import robot.drive.Drive;
- 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -29,16 +30,18 @@ import robot.drive.Drive;
  */
 public class Robot extends CommandRobot implements Logged {
   // INPUT DEVICES
-  private final CommandXboxController operator = new CommandXboxController(OI.OPERATOR);
-  private final CommandXboxController driver = new CommandXboxController(OI.DRIVER);
+  private final CommandXboxController operator = new CommandXboxController(Ports.OI.OPERATOR);
+  private final CommandXboxController driver = new CommandXboxController(Ports.OI.DRIVER);
 
   private final PowerDistribution pdh = new PowerDistribution();
 
   // SUBSYSTEMS
+
   public static Drive drive = new Drive();
+
+  private final Arms arms = Arms.create();
+
   // COMMANDS
-
-
 
   /** The robot contains subsystems, OI devices, and commands. */
   public Robot() {
@@ -74,8 +77,21 @@ public class Robot extends CommandRobot implements Logged {
 
   /** Configures trigger -> command bindings. */
   private void configureBindings() {
-    drive.setDefaultCommand(drive.moveRobot(driver::getLeftY, driver::getRightY));
+
+    drive.setDefaultCommand(drive.drive(driver::getLeftY, driver::getRightY));
+     System.out.println("Driver Left Y: " + driver.getLeftY());
+    // Arm button bindings for clamping and releasing
+    operator.a().whileTrue(arms.clampHold());
+    operator.b().onTrue(arms.clampRelease());
+
+    // Arm arrow button bindings for moving the arm up and down
+    operator.povUp().toggleOnTrue(arms.manualMoveArm(() -> 1.0, () -> 0.0));
+    operator.povDown().toggleOnTrue(arms.manualMoveArm(() -> 0.0, () -> 1.0));
+
+    // Arm button binding to reset to a specific angle
+    operator.x().onTrue(arms.returnToStart());
   }
+
   /**
    * Command factory to make both controllers rumble.
    *

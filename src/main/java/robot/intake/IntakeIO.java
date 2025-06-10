@@ -1,5 +1,5 @@
 package robot.intake;
 
 public interface IntakeIO {
-    void setPower(double power);
+  void setPower(double power);
 }

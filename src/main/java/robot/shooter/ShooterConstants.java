@@ -1,5 +1,3 @@
 package robot.shooter;
 
-public class ShooterConstants {
-    
-}
+public class ShooterConstants {}

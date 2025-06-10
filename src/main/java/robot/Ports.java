@@ -9,11 +9,11 @@ public final class Ports {
   }
 
   public static final class Drive {
-    public static final int RIGHT_LEADER = 2;
-    public static final int RIGHT_FOLLOWER = 3;
-    public static final int LEFT_LEADER = 4;
-    public static final int LEFT_FOLLOWER = 5;
-
+    public static final int RIGHT_LEADER = 2; //not working
+    public static final int RIGHT_FOLLOWER = 3; //not wokring
+    public static final int LEFT_LEADER = 4; //wokring 
+    public static final int LEFT_FOLLOWER = 5; //not working 
+    public static final int GYRO_CHANNEL = 0;
   }
 
   public static final class Intake {
@@ -23,18 +23,14 @@ public final class Ports {
   public static final class Arms {
     public static final int Leftarm = 7;
     public static final int Rightarm = 8;
-  
   }
 
   public static final class Shooter {
-    public static final int rightShooter = 9;
-    public static final int leftShooter = 10;
-    public static int RightShooter;
+    public static final int Shooter = 11;
   }
 
   public static final class Conveyor {
     public static final int CONVEYOR_LEADER = 9;
     public static final int CONVEYOR_FOLLOWER = 10;
   }
-
 }
