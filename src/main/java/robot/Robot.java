@@ -3,6 +3,8 @@ package robot;
 import static edu.wpi.first.units.Units.Seconds;
 import static robot.Constants.PERIOD;
 
+import org.littletonrobotics.urcl.URCL;
+
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -17,7 +19,6 @@ import lib.CommandRobot;
 import lib.FaultLogger;
 import monologue.Logged;
 import monologue.Monologue;
-import org.littletonrobotics.urcl.URCL;
 import robot.arms.Arms;
 import robot.drive.Drive;
 
@@ -37,6 +38,7 @@ public class Robot extends CommandRobot implements Logged {
   // SUBSYSTEMS
 
   public static Drive drive = new Drive();
+
   private final Arms arms = Arms.create();
 
   // COMMANDS
@@ -77,7 +79,7 @@ public class Robot extends CommandRobot implements Logged {
   private void configureBindings() {
 
     drive.setDefaultCommand(drive.drive(driver::getLeftY, driver::getRightY));
-
+     System.out.println("Driver Left Y: " + driver.getLeftY());
     // Arm button bindings for clamping and releasing
     operator.a().whileTrue(arms.clampHold());
     operator.b().onTrue(arms.clampRelease());

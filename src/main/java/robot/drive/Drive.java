@@ -33,14 +33,10 @@ import robot.drive.DriveConstants.PID;
 
 public class Drive extends SubsystemBase {
   // hardware
-  private final CANSparkMax leftLeader =
-      new CANSparkMax(Ports.Drive.LEFT_LEADER, MotorType.kBrushless);
-  private final CANSparkMax leftFollower =
-      new CANSparkMax(Ports.Drive.LEFT_FOLLOWER, MotorType.kBrushless);
-  private final CANSparkMax rightLeader =
-      new CANSparkMax(Ports.Drive.RIGHT_LEADER, MotorType.kBrushless);
-  private final CANSparkMax rightFollower =
-      new CANSparkMax(Ports.Drive.RIGHT_FOLLOWER, MotorType.kBrushless);
+  private final CANSparkMax leftLeader = new CANSparkMax(Ports.Drive.LEFT_LEADER, MotorType.kBrushless);
+  private final CANSparkMax leftFollower = new CANSparkMax(Ports.Drive.LEFT_FOLLOWER, MotorType.kBrushless);
+  private final CANSparkMax rightLeader = new CANSparkMax(Ports.Drive.RIGHT_LEADER, MotorType.kBrushless);
+  private final CANSparkMax rightFollower = new CANSparkMax(Ports.Drive.RIGHT_FOLLOWER, MotorType.kBrushless);
   // Encoders
   private final RelativeEncoder leftEncoder = leftLeader.getEncoder();
   private final RelativeEncoder rightEncoder = rightLeader.getEncoder();
@@ -57,13 +53,14 @@ public class Drive extends SubsystemBase {
   private final DifferentialDrivetrainSim driveSim;
 
   @Log.NT 
-  private final Field2d field2d = new Field2d();
+  private final Field2d field2d = new Field2d(); 
 
   public Drive() {
     for (CANSparkMax spark : List.of(leftLeader, leftFollower, rightLeader, rightFollower)) {
       spark.restoreFactoryDefaults();
       spark.setIdleMode(IdleMode.kBrake);
-    }
+     }
+
     rightFollower.follow(rightLeader);
     leftFollower.follow(leftLeader);
     leftLeader.setInverted(true);
@@ -74,9 +71,11 @@ public class Drive extends SubsystemBase {
     rightEncoder.setVelocityConversionFactor(VELOCITY_FACTOR);
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+
     //gyro
     gyro.reset();
-    SmartDashboard.putData("Field", field2d);
+    SmartDashboard.putData("Field", field2d); //Foced adding feild2d
+    
     driveSim =
         new DifferentialDrivetrainSim(
             DCMotor.getMiniCIM(2),
@@ -96,10 +95,8 @@ public class Drive extends SubsystemBase {
 
     final double leftFeedSpeed = feedforward.calculate(actualLeftSpeed);
     final double rightFeedSpeed = feedforward.calculate(actualRightSpeed);
-
     final double leftPID = leftPidController.calculate(leftEncoder.getVelocity(), actualLeftSpeed);
-    final double rightPID =
-        rightPidController.calculate(rightEncoder.getVelocity(), actualRightSpeed);
+    final double rightPID = rightPidController.calculate(rightEncoder.getVelocity(), actualRightSpeed);
 
     double leftVoltage = leftPID + leftFeedSpeed;
     double rightVoltage = rightPID + rightFeedSpeed;
@@ -108,6 +105,8 @@ public class Drive extends SubsystemBase {
     rightLeader.setVoltage(rightVoltage);
     driveSim.setInputs(leftVoltage, rightVoltage);
   }
+
+
 
   private void updateOdometry(Rotation2d rotation) {
     odometry.update(rotation, leftEncoder.getPosition(), rightEncoder.getPosition());
@@ -120,6 +119,8 @@ public class Drive extends SubsystemBase {
   @Override
   public void periodic() {
     updateOdometry(Robot.isReal() ? gyro.getRotation2d() : driveSim.getHeading());
+    rightEncoder.getPosition();
+    leftEncoder.getPosition();
     field2d.setRobotPose(pose());
   }
   @Override
@@ -135,6 +136,8 @@ public class Drive extends SubsystemBase {
 
   // actual method that will return the command
   public Command drive(DoubleSupplier vLeft, DoubleSupplier vRight) {
-    return run(() -> drive(vLeft.getAsDouble(), vRight.getAsDouble()));
+    return run(() -> {
+      drive(vLeft.getAsDouble(), vRight.getAsDouble());
+    });
   }
 }
